@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -19,4 +21,48 @@ public class Client {
     private String cpf;
     @Column(nullable = false)
     private LocalDate birthDate;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "tab_user_roles",joinColumns = @JoinColumn(name = "user" ))
+    @Column(name = "role_id")
+    private List<String> roles = new ArrayList<>();
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
 }
